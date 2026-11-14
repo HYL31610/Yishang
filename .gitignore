@@ -2,8 +2,17 @@
 /.claude/
 *.bak
 
-# 根目录源素材（不参与网页运行）
+# 源素材（不参与网页运行）
 /*.mp4
 /*.png
 /*.jpg
 /*.jpeg
+/source/
+
+# 临时截图与检查产物
+/_check/
+/_chk/
+
+# Netlify 部署目录
+/dist/
+/.netlify/

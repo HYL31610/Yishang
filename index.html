@@ -749,8 +749,16 @@
     return;
   }
 
-  let loaded = document.readyState === 'complete';
-  addEventListener('load', () => { loaded = true; }, { once: true });
+  let loaded = false;
+  const markLoaded = () => { loaded = true; };
+  const heroImg = document.querySelector('.hero-static');
+  if (heroImg && !heroImg.complete) {
+    heroImg.addEventListener('load', markLoaded, { once: true });
+    heroImg.addEventListener('error', markLoaded, { once: true });
+  } else {
+    loaded = true;
+  }
+  setTimeout(markLoaded, reduce ? 450 : 2400);
   const t0 = performance.now();
   const min = reduce ? 350 : 1700;
 
@@ -768,7 +776,7 @@
     requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
-  setTimeout(() => { if (!pre.classList.contains('done')) finish(); }, 6000);
+  setTimeout(() => { if (!pre.classList.contains('done')) finish(); }, 4000);
 })();
 </script>
 <a class="skip-link" href="#main">跳到主要内容</a>
@@ -859,7 +867,7 @@
     <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="hero-bg" aria-hidden="true">
       <div class="hero-media">
-        <img class="hero-static" src="media/hero-board.webp" alt="">
+        <img decoding="async" fetchpriority="high" class="hero-static" src="media/hero-board.webp" alt="">
       </div>
     </div>
     <div class="container hero-inner">
@@ -886,7 +894,7 @@
   <section class="section" id="about" data-section="02" aria-labelledby="aboutTitle">
     <div class="container about-grid">
       <div class="about-media reveal">
-        <img class="about-photo" src="media/about-portrait-2.webp" alt="Yishang · 个人照片" loading="lazy">
+        <img decoding="async" class="about-photo" src="media/about-portrait-2.webp" alt="Yishang · 个人照片" loading="lazy">
       </div>
       <div class="about-body">
         <span class="eyebrow reveal">ABOUT</span>
@@ -910,70 +918,70 @@
           <div class="skills-track" id="skillsTrack">
             <div class="skills-set">
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ai.webp" alt="Adobe Illustrator" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ai.webp" alt="Adobe Illustrator" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Illustrator</b>
               <span class="skill-desc">矢量图形绘制、插画排版与标志设计</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-deepseek.webp" alt="DeepSeek" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-deepseek.webp" alt="DeepSeek" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DeepSeek</b>
               <span class="skill-desc">文本生成、代码编写与深度逻辑推理</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-gpt.webp" alt="ChatGPT" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-gpt.webp" alt="ChatGPT" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">ChatGPT</b>
               <span class="skill-desc">多轮对话与内容创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-liblib.webp" alt="LiblibAI" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-liblib.webp" alt="LiblibAI" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">LiblibAI</b>
               <span class="skill-desc">AI绘画与视觉创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-minimax.webp" alt="MiniMax" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-minimax.webp" alt="MiniMax" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">MiniMax</b>
               <span class="skill-desc">AI视频生成、文本与语音合成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-mj.webp" alt="Midjourney" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-mj.webp" alt="Midjourney" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Midjourney</b>
               <span class="skill-desc">高美学水准AI图像生成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-pr.webp" alt="Premiere Pro" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-pr.webp" alt="Premiere Pro" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Premiere Pro</b>
               <span class="skill-desc">专业非线性视频剪辑与后期音频混音</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ps.webp" alt="Photoshop" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ps.webp" alt="Photoshop" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Photoshop</b>
               <span class="skill-desc">专业图像合成与精修工具</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-davinci.webp" alt="DaVinci Resolve" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-davinci.webp" alt="DaVinci Resolve" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DaVinci Resolve</b>
               <span class="skill-desc">视频剪辑与电影级调色</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-xiaoyunque.webp" alt="小云雀" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-xiaoyunque.webp" alt="小云雀" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">小云雀</b>
               <span class="skill-desc">AI智能创作</span>
@@ -982,70 +990,70 @@
             </div>
             <div class="skills-set">
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ai.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ai.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Illustrator</b>
               <span class="skill-desc">矢量图形绘制、插画排版与标志设计</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-deepseek.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-deepseek.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DeepSeek</b>
               <span class="skill-desc">文本生成、代码编写与深度逻辑推理</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-gpt.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-gpt.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">ChatGPT</b>
               <span class="skill-desc">多轮对话与内容创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-liblib.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-liblib.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">LiblibAI</b>
               <span class="skill-desc">AI绘画与视觉创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-minimax.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-minimax.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">MiniMax</b>
               <span class="skill-desc">AI视频生成、文本与语音合成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-mj.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-mj.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Midjourney</b>
               <span class="skill-desc">高美学水准AI图像生成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-pr.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-pr.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Premiere Pro</b>
               <span class="skill-desc">专业非线性视频剪辑与后期音频混音</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ps.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ps.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Photoshop</b>
               <span class="skill-desc">专业图像合成与精修工具</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-davinci.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-davinci.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DaVinci Resolve</b>
               <span class="skill-desc">视频剪辑与电影级调色</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-xiaoyunque.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-xiaoyunque.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">小云雀</b>
               <span class="skill-desc">AI智能创作</span>
@@ -1054,70 +1062,70 @@
             </div>
             <div class="skills-set">
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ai.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ai.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Illustrator</b>
               <span class="skill-desc">矢量图形绘制、插画排版与标志设计</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-deepseek.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-deepseek.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DeepSeek</b>
               <span class="skill-desc">文本生成、代码编写与深度逻辑推理</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-gpt.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-gpt.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">ChatGPT</b>
               <span class="skill-desc">多轮对话与内容创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-liblib.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-liblib.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">LiblibAI</b>
               <span class="skill-desc">AI绘画与视觉创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-minimax.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-minimax.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">MiniMax</b>
               <span class="skill-desc">AI视频生成、文本与语音合成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-mj.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-mj.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Midjourney</b>
               <span class="skill-desc">高美学水准AI图像生成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-pr.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-pr.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Premiere Pro</b>
               <span class="skill-desc">专业非线性视频剪辑与后期音频混音</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ps.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ps.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Photoshop</b>
               <span class="skill-desc">专业图像合成与精修工具</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-davinci.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-davinci.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DaVinci Resolve</b>
               <span class="skill-desc">视频剪辑与电影级调色</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-xiaoyunque.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-xiaoyunque.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">小云雀</b>
               <span class="skill-desc">AI智能创作</span>
@@ -1126,70 +1134,70 @@
             </div>
             <div class="skills-set">
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ai.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ai.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Illustrator</b>
               <span class="skill-desc">矢量图形绘制、插画排版与标志设计</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-deepseek.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-deepseek.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DeepSeek</b>
               <span class="skill-desc">文本生成、代码编写与深度逻辑推理</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-gpt.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-gpt.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">ChatGPT</b>
               <span class="skill-desc">多轮对话与内容创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-liblib.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-liblib.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">LiblibAI</b>
               <span class="skill-desc">AI绘画与视觉创作</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-minimax.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-minimax.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">MiniMax</b>
               <span class="skill-desc">AI视频生成、文本与语音合成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-mj.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-mj.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Midjourney</b>
               <span class="skill-desc">高美学水准AI图像生成</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-pr.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-pr.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Premiere Pro</b>
               <span class="skill-desc">专业非线性视频剪辑与后期音频混音</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-ps.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-ps.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">Adobe Photoshop</b>
               <span class="skill-desc">专业图像合成与精修工具</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-davinci.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-davinci.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">DaVinci Resolve</b>
               <span class="skill-desc">视频剪辑与电影级调色</span>
             </div>
           </div>
           <div class="skill-item">
-            <div class="skill-icon"><img src="media/skill-xiaoyunque.webp" alt="" draggable="false"></div>
+            <div class="skill-icon"><img decoding="async" loading="lazy" src="media/skill-xiaoyunque.webp" alt="" draggable="false"></div>
             <div class="skill-caption">
               <b class="skill-title">小云雀</b>
               <span class="skill-desc">AI智能创作</span>
@@ -1242,10 +1250,10 @@
       <div class="cat-overview ip-group lead">
             <button class="cat-card work-item reveal" id="work-01" type="button" data-title="IP设计：YS" data-cat-label="IP设计" data-year="2026">
         <span class="fan-stack">
-          <img class="fan-card f1" src="media/ys-02-sheet.webp" alt="YS 角色设定板">
-          <img class="fan-card f2" src="media/ys-03-colors.webp" alt="YS 色彩与服饰细节">
-          <img class="fan-card f3" src="media/ys-04-views.webp" alt="YS 角色三视图">
-          <img class="fan-card front" src="media/ys-01-character.webp" alt="YS 角色形象">
+          <img decoding="async" loading="lazy" class="fan-card f1" src="media/ys-02-sheet.webp" alt="YS 角色设定板">
+          <img decoding="async" loading="lazy" class="fan-card f2" src="media/ys-03-colors.webp" alt="YS 色彩与服饰细节">
+          <img decoding="async" loading="lazy" class="fan-card f3" src="media/ys-04-views.webp" alt="YS 角色三视图">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/ys-01-character.webp" alt="YS 角色形象">
           <span class="fan-num">01</span>
         </span>
         <span class="cat-info">
@@ -1253,18 +1261,18 @@
           <span class="cat-link">查看作品 <span aria-hidden="true">→</span></span>
         </span>
         <span class="work-gallery" hidden>
-          <img src="media/ys-05-stickers.webp" alt="YS · 多表情贴纸">
-          <img src="media/ys-06-figures.webp" alt="YS · 多视角潮玩手办">
-          <img src="media/ys-07-merch.webp" alt="YS · 潮流文创周边">
-          <img src="media/ys-08-halloween.webp" alt="YS · 万圣节造型">
+          <img decoding="async" loading="lazy" src="media/ys-05-stickers.webp" alt="YS · 多表情贴纸">
+          <img decoding="async" loading="lazy" src="media/ys-06-figures.webp" alt="YS · 多视角潮玩手办">
+          <img decoding="async" loading="lazy" src="media/ys-07-merch.webp" alt="YS · 潮流文创周边">
+          <img decoding="async" loading="lazy" src="media/ys-08-halloween.webp" alt="YS · 万圣节造型">
         </span>
       </button>
             <button class="cat-card work-item reveal" id="work-02" type="button" data-title="IP设计：小黄" data-cat-label="IP设计" data-year="2026">
         <span class="fan-stack">
-          <img class="fan-card f1" src="media/xiaohuang-02-sheet.webp" alt="小黄 设计面板">
-          <img class="fan-card f2" src="media/xiaohuang-03-colors.webp" alt="小黄 色彩与服饰细节">
-          <img class="fan-card f3" src="media/xiaohuang-04-views.webp" alt="小黄 多视角">
-          <img class="fan-card front" src="media/xiaohuang-01-main.webp" alt="小黄 角色形象">
+          <img decoding="async" loading="lazy" class="fan-card f1" src="media/xiaohuang-02-sheet.webp" alt="小黄 设计面板">
+          <img decoding="async" loading="lazy" class="fan-card f2" src="media/xiaohuang-03-colors.webp" alt="小黄 色彩与服饰细节">
+          <img decoding="async" loading="lazy" class="fan-card f3" src="media/xiaohuang-04-views.webp" alt="小黄 多视角">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/xiaohuang-01-main.webp" alt="小黄 角色形象">
           <span class="fan-num">02</span>
         </span>
         <span class="cat-info">
@@ -1272,19 +1280,19 @@
           <span class="cat-link">查看作品 <span aria-hidden="true">→</span></span>
         </span>
         <span class="work-gallery" hidden>
-          <img src="media/xiaohuang-05-merch.webp" alt="小黄 · 产品周边">
-          <img src="media/xiaohuang-06-christmas.webp" alt="小黄 · 圣诞装">
-          <img src="media/xiaohuang-07-halloween.webp" alt="小黄 · 万圣节">
-          <img src="media/xiaohuang-08-mecha.webp" alt="小黄 · 机甲风">
-          <img src="media/xiaohuang-09-teacher.webp" alt="小黄 · 教师">
+          <img decoding="async" loading="lazy" src="media/xiaohuang-05-merch.webp" alt="小黄 · 产品周边">
+          <img decoding="async" loading="lazy" src="media/xiaohuang-06-christmas.webp" alt="小黄 · 圣诞装">
+          <img decoding="async" loading="lazy" src="media/xiaohuang-07-halloween.webp" alt="小黄 · 万圣节">
+          <img decoding="async" loading="lazy" src="media/xiaohuang-08-mecha.webp" alt="小黄 · 机甲风">
+          <img decoding="async" loading="lazy" src="media/xiaohuang-09-teacher.webp" alt="小黄 · 教师">
         </span>
       </button>
             <button class="cat-card work-item reveal" id="work-03" type="button" data-title="IP设计：蓝魅" data-cat-label="IP设计" data-year="2026">
         <span class="fan-stack">
-          <img class="fan-card f1" src="media/lanmei-02-sheet.webp" alt="蓝魅 角色设定卡板">
-          <img class="fan-card f2" src="media/lanmei-03-colors.webp" alt="蓝魅 色彩与服饰细节">
-          <img class="fan-card f3" src="media/lanmei-04-merch.webp" alt="蓝魅 周边设计">
-          <img class="fan-card front on-board" src="media/lanmei-01-character.webp" data-board="light" alt="蓝魅 角色形象">
+          <img decoding="async" loading="lazy" class="fan-card f1" src="media/lanmei-02-sheet.webp" alt="蓝魅 角色设定卡板">
+          <img decoding="async" loading="lazy" class="fan-card f2" src="media/lanmei-03-colors.webp" alt="蓝魅 色彩与服饰细节">
+          <img decoding="async" loading="lazy" class="fan-card f3" src="media/lanmei-04-merch.webp" alt="蓝魅 周边设计">
+          <img decoding="async" loading="lazy" class="fan-card front on-board" src="media/lanmei-01-character.webp" data-board="light" alt="蓝魅 角色形象">
           <span class="fan-num">03</span>
         </span>
         <span class="cat-info">
@@ -1292,9 +1300,9 @@
           <span class="cat-link">查看作品 <span aria-hidden="true">→</span></span>
         </span>
         <span class="work-gallery" hidden>
-          <img src="media/lanmei-05-stickers.webp" class="on-board" data-board="light" alt="蓝魅 · 表情贴纸">
-          <img src="media/lanmei-06-poses.webp" class="on-dark-board" data-board="dark" alt="蓝魅 · 十六姿态图鉴">
-          <img src="media/lanmei-07-seasons.webp" class="on-dark-board" data-board="dark" alt="蓝魅 · 四季主题">
+          <img decoding="async" loading="lazy" src="media/lanmei-05-stickers.webp" class="on-board" data-board="light" alt="蓝魅 · 表情贴纸">
+          <img decoding="async" loading="lazy" src="media/lanmei-06-poses.webp" class="on-dark-board" data-board="dark" alt="蓝魅 · 十六姿态图鉴">
+          <img decoding="async" loading="lazy" src="media/lanmei-07-seasons.webp" class="on-dark-board" data-board="dark" alt="蓝魅 · 四季主题">
         </span>
       </button>
       </div>
@@ -1308,11 +1316,11 @@
             <p class="cat-block-quote">利用 MJ V6 打造 2.5D 半写实 CG 概念图。通过精准控制光影材质与排版元素，结合垫图（-sref）锁定画风，生成电影级机能与暗黑创意图。<br><br>Niji 6 专攻纯二次元动漫风。擅长硬核机甲、机能战术角色，结合强排版指令，完美复刻高对比度的动漫游戏宣发海报视觉。</p>
           </div>
           <button class="cat-block-media work-item" type="button" data-title="MJ创意图" data-cat-label="MJ创意图" data-year="2024">
-            <img src="media/mj-cover.webp" alt="MJ创意图 · 封面" loading="lazy">
+            <img decoding="async" src="media/mj-cover.webp" alt="MJ创意图 · 封面" loading="lazy">
             <span class="work-gallery" hidden>
-              <img src="media/mj-gallery.webp" alt="MJ创意图 · 作品合集" loading="lazy">
-              <img src="media/mj-scenes.webp" alt="MJ创意图 · 场景合集" loading="lazy">
-              <img src="media/mj-sets.webp" alt="MJ创意图 · 套图合集" loading="lazy">
+              <img decoding="async" src="media/mj-gallery.webp" alt="MJ创意图 · 作品合集" loading="lazy">
+              <img decoding="async" src="media/mj-scenes.webp" alt="MJ创意图 · 场景合集" loading="lazy">
+              <img decoding="async" src="media/mj-sets.webp" alt="MJ创意图 · 套图合集" loading="lazy">
             </span>
             <span class="cat-block-view">查看作品 <span aria-hidden="true">↗</span></span>
           </button>
@@ -1326,11 +1334,11 @@
             <p class="cat-block-quote">利用 ComfyUI 搭建节点工作流：通过 Checkpoint + LoRA 锁定艺术风格，结合 ControlNet（OpenPose / Depth）精准控制姿态与构图，利用 IP-Adapter 保证人脸特征一致性，最后经高清放大与 FaceDetailer 细节精修，输出高精度人像艺术写真。</p>
           </div>
           <button class="cat-block-media work-item" type="button" data-title="人像艺术写真" data-cat-label="人像艺术写真" data-year="2025">
-            <img src="media/portrait-cover.webp" alt="人像艺术写真 · 封面" loading="lazy">
+            <img decoding="async" src="media/portrait-cover.webp" alt="人像艺术写真 · 封面" loading="lazy">
             <span class="work-gallery" hidden>
-              <img src="media/portrait-process.webp" alt="人像艺术写真 · 制作过程" loading="lazy">
-              <img src="media/portrait-set-a.webp" alt="人像艺术写真 · 01 / 02 / 04" loading="lazy">
-              <img src="media/portrait-set-b.webp" alt="人像艺术写真 · 03 / 05" loading="lazy">
+              <img decoding="async" src="media/portrait-process.webp" alt="人像艺术写真 · 制作过程" loading="lazy">
+              <img decoding="async" src="media/portrait-set-a.webp" alt="人像艺术写真 · 01 / 02 / 04" loading="lazy">
+              <img decoding="async" src="media/portrait-set-b.webp" alt="人像艺术写真 · 03 / 05" loading="lazy">
             </span>
             <span class="cat-block-view">查看作品 <span aria-hidden="true">↗</span></span>
           </button>
@@ -1344,15 +1352,15 @@
             <p class="cat-block-quote">导入线稿 / 毛坯房后，首选 ControlNet（MLSD 模型）提取建筑直线结构并锁定空间透视，配合 Lineart 补充细节。加载写实类室内大模型，输入风格与材质提示词（如现代简约、光影描述）。在图生图阶段调整 ControlNet 权重，确保生成图不跑偏；最后利用局部重绘（Inpainting）精修软装家具，并通过放大节点输出高清效果图。</p>
           </div>
           <button class="cat-block-media work-item" type="button" data-title="室内设计" data-cat-label="室内设计" data-year="2026">
-            <img src="media/interior-02.webp" alt="室内设计 · 02" loading="lazy">
+            <img decoding="async" src="media/interior-02.webp" alt="室内设计 · 02" loading="lazy">
             <span class="work-gallery" hidden>
-              <img src="media/interior-process.webp" alt="室内设计 · 制作流程" loading="lazy">
-              <img src="media/interior-01.webp" alt="室内设计 · 线稿" loading="lazy">
-              <img src="media/interior-03.webp" alt="室内设计 · 03" loading="lazy">
-              <img src="media/interior-04.webp" alt="室内设计 · 04" loading="lazy">
-              <img src="media/interior-05.webp" alt="室内设计 · 05" loading="lazy">
-              <img src="media/interior-06.webp" alt="室内设计 · 06" loading="lazy">
-              <img src="media/interior-07.webp" alt="室内设计 · 07" loading="lazy">
+              <img decoding="async" src="media/interior-process.webp" alt="室内设计 · 制作流程" loading="lazy">
+              <img decoding="async" src="media/interior-01.webp" alt="室内设计 · 线稿" loading="lazy">
+              <img decoding="async" src="media/interior-03.webp" alt="室内设计 · 03" loading="lazy">
+              <img decoding="async" src="media/interior-04.webp" alt="室内设计 · 04" loading="lazy">
+              <img decoding="async" src="media/interior-05.webp" alt="室内设计 · 05" loading="lazy">
+              <img decoding="async" src="media/interior-06.webp" alt="室内设计 · 06" loading="lazy">
+              <img decoding="async" src="media/interior-07.webp" alt="室内设计 · 07" loading="lazy">
             </span>
             <span class="cat-block-view">查看作品 <span aria-hidden="true">↗</span></span>
           </button>
@@ -1366,10 +1374,10 @@
             <p class="cat-block-quote">输入人物图与服装图，通过核心节点对齐服装与身体部位，结合遮罩（Mask）精准限定换装区域，再以重绘（Inpainting）或专用 VTON 模型完成服装迁移与融合，全程锁定人物面部与姿态不变。关键在于利用 ControlNet 或 keep_pose 参数维持姿态一致性，并通过二次低重绘幅度精修边缘，确保服装纹理自然贴合。</p>
           </div>
           <button class="cat-block-media work-item" type="button" data-title="模特换装" data-cat-label="模特换装" data-year="2024">
-            <img src="media/model-cover.webp" alt="模特换装 · 原图" loading="lazy">
+            <img decoding="async" src="media/model-cover.webp" alt="模特换装 · 原图" loading="lazy">
             <span class="work-gallery" hidden>
-              <img src="media/model-process.webp" alt="模特换装 · 制作流程" loading="lazy">
-              <img src="media/model-gallery.webp" alt="模特换装 · 换装合集" loading="lazy">
+              <img decoding="async" src="media/model-process.webp" alt="模特换装 · 制作流程" loading="lazy">
+              <img decoding="async" src="media/model-gallery.webp" alt="模特换装 · 换装合集" loading="lazy">
             </span>
             <span class="cat-block-view">查看作品 <span aria-hidden="true">↗</span></span>
           </button>
@@ -1380,10 +1388,10 @@
 <div class="cat-overview ip-group">
             <button class="cat-card work-item reveal" id="work-08" type="button" data-title="腹灵MK870Pro" data-cat-label="腹灵MK870Pro" data-year="2026">
         <span class="fan-stack">
-          <img class="fan-card f1" src="media/mk870-02.webp" alt="腹灵MK870Pro · 主图">
-          <img class="fan-card f2" src="media/mk870-03.webp" alt="腹灵MK870Pro · Banner">
-          <img class="fan-card f3" src="media/mk870-04.webp" alt="腹灵MK870Pro · 详情首屏">
-          <img class="fan-card front" src="media/mk870-01.webp" alt="腹灵MK870Pro · 电竞海报">
+          <img decoding="async" loading="lazy" class="fan-card f1" src="media/mk870-02.webp" alt="腹灵MK870Pro · 主图">
+          <img decoding="async" loading="lazy" class="fan-card f2" src="media/mk870-03.webp" alt="腹灵MK870Pro · Banner">
+          <img decoding="async" loading="lazy" class="fan-card f3" src="media/mk870-04.webp" alt="腹灵MK870Pro · 详情首屏">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/mk870-01.webp" alt="腹灵MK870Pro · 电竞海报">
           <span class="fan-num">08</span>
         </span>
         <span class="cat-info">
@@ -1391,20 +1399,20 @@
           <span class="cat-link">查看作品 <span aria-hidden="true">→</span></span>
         </span>
         <span class="work-gallery" hidden>
-          <img src="media/mk870-05.webp" alt="腹灵MK870Pro · 核心卖点" loading="lazy">
-          <img src="media/mk870-06.webp" alt="腹灵MK870Pro · 产品优势" loading="lazy">
-          <img src="media/mk870-07.webp" alt="腹灵MK870Pro · 产品细节" loading="lazy">
-          <img src="media/mk870-08.webp" alt="腹灵MK870Pro · 痛点对比" loading="lazy">
-          <img src="media/mk870-09.webp" alt="腹灵MK870Pro · 实拍组合" loading="lazy">
-          <img src="media/mk870-10.webp" alt="腹灵MK870Pro · 官方保障" loading="lazy">
+          <img decoding="async" src="media/mk870-05.webp" alt="腹灵MK870Pro · 核心卖点" loading="lazy">
+          <img decoding="async" src="media/mk870-06.webp" alt="腹灵MK870Pro · 产品优势" loading="lazy">
+          <img decoding="async" src="media/mk870-07.webp" alt="腹灵MK870Pro · 产品细节" loading="lazy">
+          <img decoding="async" src="media/mk870-08.webp" alt="腹灵MK870Pro · 痛点对比" loading="lazy">
+          <img decoding="async" src="media/mk870-09.webp" alt="腹灵MK870Pro · 实拍组合" loading="lazy">
+          <img decoding="async" src="media/mk870-10.webp" alt="腹灵MK870Pro · 官方保障" loading="lazy">
         </span>
       </button>
             <button class="cat-card work-item reveal" id="work-09" type="button" data-title="破晓" data-cat-label="破晓" data-year="2025">
         <span class="fan-stack">
-          <img class="fan-card f1" src="media/poxiao-02.webp" alt="破晓 · 香调介绍">
-          <img class="fan-card f2" src="media/poxiao-03.webp" alt="破晓 · 香调结构">
-          <img class="fan-card f3" src="media/poxiao-04.webp" alt="破晓 · 原料来源">
-          <img class="fan-card front" src="media/poxiao-01.webp" alt="破晓 · 主视觉">
+          <img decoding="async" loading="lazy" class="fan-card f1" src="media/poxiao-02.webp" alt="破晓 · 香调介绍">
+          <img decoding="async" loading="lazy" class="fan-card f2" src="media/poxiao-03.webp" alt="破晓 · 香调结构">
+          <img decoding="async" loading="lazy" class="fan-card f3" src="media/poxiao-04.webp" alt="破晓 · 原料来源">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/poxiao-01.webp" alt="破晓 · 主视觉">
           <span class="fan-num">09</span>
         </span>
         <span class="cat-info">
@@ -1412,20 +1420,20 @@
           <span class="cat-link">查看作品 <span aria-hidden="true">→</span></span>
         </span>
         <span class="work-gallery" hidden>
-          <img src="media/poxiao-05.webp" alt="破晓 · 器物细节" loading="lazy">
-          <img src="media/poxiao-06.webp" alt="破晓 · 使用场景" loading="lazy">
-          <img src="media/poxiao-07.webp" alt="破晓 · 产品信息" loading="lazy">
-          <img src="media/poxiao-08.webp" alt="破晓 · 正品保证" loading="lazy">
-          <img src="media/poxiao-09.webp" alt="破晓 · 电商主图" loading="lazy">
-          <img src="media/poxiao-10.webp" alt="破晓 · 竖版海报" loading="lazy">
+          <img decoding="async" src="media/poxiao-05.webp" alt="破晓 · 器物细节" loading="lazy">
+          <img decoding="async" src="media/poxiao-06.webp" alt="破晓 · 使用场景" loading="lazy">
+          <img decoding="async" src="media/poxiao-07.webp" alt="破晓 · 产品信息" loading="lazy">
+          <img decoding="async" src="media/poxiao-08.webp" alt="破晓 · 正品保证" loading="lazy">
+          <img decoding="async" src="media/poxiao-09.webp" alt="破晓 · 电商主图" loading="lazy">
+          <img decoding="async" src="media/poxiao-10.webp" alt="破晓 · 竖版海报" loading="lazy">
         </span>
       </button>
             <button class="cat-card work-item reveal" id="work-10" type="button" data-title="花花公子" data-cat-label="花花公子" data-year="2024">
         <span class="fan-stack">
-          <img class="fan-card f1" src="media/playboy-02.webp" alt="花花公子 · 主图">
-          <img class="fan-card f2" src="media/playboy-03.webp" alt="花花公子 · Banner">
-          <img class="fan-card f3" src="media/playboy-04.webp" alt="花花公子 · 秋季新款首屏">
-          <img class="fan-card front" src="media/playboy-01.webp" alt="花花公子 · 海报">
+          <img decoding="async" loading="lazy" class="fan-card f1" src="media/playboy-02.webp" alt="花花公子 · 主图">
+          <img decoding="async" loading="lazy" class="fan-card f2" src="media/playboy-03.webp" alt="花花公子 · Banner">
+          <img decoding="async" loading="lazy" class="fan-card f3" src="media/playboy-04.webp" alt="花花公子 · 秋季新款首屏">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/playboy-01.webp" alt="花花公子 · 海报">
           <span class="fan-num">10</span>
         </span>
         <span class="cat-info">
@@ -1433,14 +1441,14 @@
           <span class="cat-link">查看作品 <span aria-hidden="true">→</span></span>
         </span>
         <span class="work-gallery" hidden>
-          <img src="media/playboy-05.webp" alt="花花公子 · 街头场景" loading="lazy">
-          <img src="media/playboy-06.webp" alt="花花公子 · 版型展示" loading="lazy">
-          <img src="media/playboy-07.webp" alt="花花公子 · 细节特写" loading="lazy">
-          <img src="media/playboy-08.webp" alt="花花公子 · 细节特写 2" loading="lazy">
-          <img src="media/playboy-09.webp" alt="花花公子 · 面料细节" loading="lazy">
-          <img src="media/playboy-10.webp" alt="花花公子 · 尺码对照" loading="lazy">
-          <img src="media/playboy-11.webp" alt="花花公子 · 一衣多穿" loading="lazy">
-          <img src="media/playboy-12.webp" alt="花花公子 · 正品保障" loading="lazy">
+          <img decoding="async" src="media/playboy-05.webp" alt="花花公子 · 街头场景" loading="lazy">
+          <img decoding="async" src="media/playboy-06.webp" alt="花花公子 · 版型展示" loading="lazy">
+          <img decoding="async" src="media/playboy-07.webp" alt="花花公子 · 细节特写" loading="lazy">
+          <img decoding="async" src="media/playboy-08.webp" alt="花花公子 · 细节特写 2" loading="lazy">
+          <img decoding="async" src="media/playboy-09.webp" alt="花花公子 · 面料细节" loading="lazy">
+          <img decoding="async" src="media/playboy-10.webp" alt="花花公子 · 尺码对照" loading="lazy">
+          <img decoding="async" src="media/playboy-11.webp" alt="花花公子 · 一衣多穿" loading="lazy">
+          <img decoding="async" src="media/playboy-12.webp" alt="花花公子 · 正品保障" loading="lazy">
         </span>
       </button>
       </div>
@@ -1448,7 +1456,7 @@
 <div class="cat-overview ip-group">
             <button class="cat-card work-item reveal" id="work-11" type="button" data-title="腹灵TVC" data-cat-label="电商TVC" data-year="2024" data-video="media/tvc-01.mp4">
         <span class="fan-stack">
-          <img class="fan-card front" src="media/tvc-cover-01.jpg" alt="腹灵TVC">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/tvc-cover-01.jpg" alt="腹灵TVC">
           <span class="card-play" aria-hidden="true"></span>
           <span class="fan-num">11-1</span>
         </span>
@@ -1460,7 +1468,7 @@
       </button>
             <button class="cat-card work-item reveal" id="work-11-2" type="button" data-title="破晓TVC" data-cat-label="电商TVC" data-year="2024" data-video="media/tvc-02.mp4">
         <span class="fan-stack">
-          <img class="fan-card front" src="media/tvc-cover-02.jpg" alt="破晓TVC">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/tvc-cover-02.jpg" alt="破晓TVC">
           <span class="card-play" aria-hidden="true"></span>
           <span class="fan-num">11-2</span>
         </span>
@@ -1472,7 +1480,7 @@
       </button>
             <button class="cat-card work-item reveal" id="work-11-3" type="button" data-title="花花公子TVC" data-cat-label="电商TVC" data-year="2024" data-video="media/tvc-03.mp4">
         <span class="fan-stack">
-          <img class="fan-card front" src="media/tvc-cover-03.jpg" alt="花花公子TVC">
+          <img decoding="async" loading="lazy" class="fan-card front" src="media/tvc-cover-03.jpg" alt="花花公子TVC">
           <span class="card-play" aria-hidden="true"></span>
           <span class="fan-num">11-3</span>
         </span>
@@ -1493,11 +1501,11 @@
             <p class="cat-block-quote">先在AI制作多段视频分镜再利用剪辑软件拼接裁剪合成。从天而降的百人厮杀，到决赛圈的终极对决。用AIGC重塑硬核战术竞技，光影、枪械与生存极限碰撞，打造电影级绝地战场。</p>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="PUBG·CG" data-cat-label="AIGC：PUBG·CG" data-year="2026" data-video="media/pubg.mp4">
-            <img src="media/pubg-cover.jpg" alt="AIGC：PUBG·CG · 视频封面" loading="lazy">
+            <img decoding="async" src="media/pubg-cover.jpg" alt="AIGC：PUBG·CG · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
-              <img src="media/pubg-process.webp" alt="AIGC：PUBG·CG · 制作过程">
+              <img decoding="async" loading="lazy" src="media/pubg-process.webp" alt="AIGC：PUBG·CG · 制作过程">
             </span>
           </button>
         </div>
@@ -1510,11 +1518,11 @@
             <p class="cat-block-quote">利用AI音乐平台制作歌曲，再结合AI生成的视频分镜结合裁剪拼接成最终成片。冬日蛰伏，是一场向内的修行。在凛冽寒风中打磨呼吸，于无声白雪间沉淀肌理，静候春雷破土，蓄势而发。</p>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="过冬练习" data-cat-label="AIGC：音乐MV·过冬练习" data-year="2025" data-video="media/guodong.mp4">
-            <img src="media/guodong-cover.jpg" alt="AIGC：音乐MV·过冬练习 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/guodong-cover.jpg" alt="AIGC：音乐MV·过冬练习 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
-              <img src="media/guodong-process.webp" alt="AIGC：音乐MV·过冬练习 · 制作过程">
+              <img decoding="async" loading="lazy" src="media/guodong-process.webp" alt="AIGC：音乐MV·过冬练习 · 制作过程">
             </span>
           </button>
         </div>
@@ -1527,7 +1535,7 @@
             <p class="cat-block-quote">将拳拳到肉的物理痛感、废墟粉尘的真实反馈与黑刀出鞘的致命压迫融为一体，让这场打斗成为展现两人性格与阶级对抗的极致暴力美学。</p>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="打斗复刻" data-cat-label="AIGC：打斗复刻" data-year="2026" data-video="media/dadou.mp4">
-            <img src="media/dadou-cover.jpg" alt="AIGC：打斗复刻 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/dadou-cover.jpg" alt="AIGC：打斗复刻 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
@@ -1536,10 +1544,10 @@
                 <p>编写提示词，强制将“<em>蓝模映射为男主</em>，<em>红模映射为白世雅</em>”。在 AI 工具中开启视频生视频（<em>V2V</em>）模式，以白膜视频驱动动作与运镜，用文字锁定场景替换与物理光影。</p>
                 <p>生成后剔除红蓝残影，匹配真实音效，完成写实打斗短片。</p>
               </div>
-              <img src="media/dadou-process.webp" alt="打斗复刻 · 制作过程">
-              <img src="media/dadou-characters.webp" alt="打斗复刻 · 角色设定：男主 / 白世雅" loading="lazy">
-              <img src="media/dadou-scene-ruins.webp" alt="打斗复刻 · 场景：废弃大楼内部" loading="lazy">
-              <img src="media/dadou-prop-knife.webp" alt="打斗复刻 · 道具：黑色短刀" loading="lazy">
+              <img decoding="async" loading="lazy" src="media/dadou-process.webp" alt="打斗复刻 · 制作过程">
+              <img decoding="async" src="media/dadou-characters.webp" alt="打斗复刻 · 角色设定：男主 / 白世雅" loading="lazy">
+              <img decoding="async" src="media/dadou-scene-ruins.webp" alt="打斗复刻 · 场景：废弃大楼内部" loading="lazy">
+              <img decoding="async" src="media/dadou-prop-knife.webp" alt="打斗复刻 · 道具：黑色短刀" loading="lazy">
             </span>
           </button>
         </div>
@@ -1551,12 +1559,12 @@
             <h3 class="cat-block-title" id="work15Title">AIGC：提线木偶</h3>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="提线木偶" data-cat-label="AIGC：提线木偶" data-year="2024" data-video="media/muou.mp4">
-            <img src="media/muou-cover.jpg" alt="AIGC：提线木偶 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/muou-cover.jpg" alt="AIGC：提线木偶 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
-              <img src="media/muou-process.webp" alt="提线木偶 · 制作过程" loading="lazy">
-              <img src="media/muou-characters.webp" alt="提线木偶 · 角色设定：白世雅 / 韩太宇" loading="lazy">
+              <img decoding="async" src="media/muou-process.webp" alt="提线木偶 · 制作过程" loading="lazy">
+              <img decoding="async" src="media/muou-characters.webp" alt="提线木偶 · 角色设定：白世雅 / 韩太宇" loading="lazy">
             </span>
           </button>
         </div>
@@ -1569,7 +1577,7 @@
             <p class="cat-block-quote">“用最唯美的韩剧光影，包装最残暴的寄生嗜血；用最日常的大学生烦恼，消解最冷酷的杀戮。让你在甜到发腻时突然见血，在极度惊恐时又忍不住笑出声。”</p>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="噬魇" data-cat-label="AI短剧：噬魇" data-year="2026" data-video="media/shiyan.mp4">
-            <img src="media/shiyan-cover.jpg" alt="AI短剧：噬魇 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/shiyan-cover.jpg" alt="AI短剧：噬魇 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
@@ -1577,9 +1585,9 @@
                 <p>“<em>魇</em>”不是传统意义上的鬼魂或丧尸，而是一种来自深海的古老微观寄生体。它们没有实体，只能通过高度匹配的“执念”（如极度的嫉妒、求而不得的渴望、濒死的求生欲）入侵人类的大脑。</p>
                 <p>被寄生的人类被称为“<em>宿主</em>”。宿主在白天会保留完美的人格，但一旦到了深夜，或者受到特定的血液刺激，就会异化为“<em>异食者</em>”——外表保留着原本精致的五官，但眼瞳血红、眼白漆黑、皮肤下血管暴突，通过咬破他人的颈动脉来吞噬“活力”以此维持自己的生命。</p>
               </div>
-              <img src="media/shiyan-process.webp" alt="噬魇 · 制作过程">
-              <img src="media/shiyan-characters.webp" alt="噬魇 · 角色设定：白世雅 / 韩太宇 / 郑夏恩" loading="lazy">
-              <img src="media/shiyan-scenes.webp" alt="噬魇 · 场景：图书馆 / 游乐场 / 老街夜 / 暗巷死角" loading="lazy">
+              <img decoding="async" loading="lazy" src="media/shiyan-process.webp" alt="噬魇 · 制作过程">
+              <img decoding="async" src="media/shiyan-characters.webp" alt="噬魇 · 角色设定：白世雅 / 韩太宇 / 郑夏恩" loading="lazy">
+              <img decoding="async" src="media/shiyan-scenes.webp" alt="噬魇 · 场景：图书馆 / 游乐场 / 老街夜 / 暗巷死角" loading="lazy">
             </span>
           </button>
         </div>
@@ -1592,7 +1600,7 @@
             <p class="cat-block-quote">这里的妖，不是传统神话中修炼成精的狐狸或黄鼠狼，而是“人类极致的罪恶凝结成的实体”。</p>
           </div>
                     <button class="cat-block-media cat-block-video work-item" type="button" data-title="人间道" data-cat-label="AI短剧：人间道" data-year="2025" data-video="media/rendao.mp4">
-            <img src="media/rendao-cover.jpg" alt="AI短剧：人间道 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/rendao-cover.jpg" alt="AI短剧：人间道 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
@@ -1600,10 +1608,10 @@
                 <p>在这个世界，<em>妖</em>的獠牙只为了活下去，而<em>人</em>的刀叉却将同类剥皮抽筋。男主用一把斩杀妖物的刀，最终审判了披着人皮的地狱。</p>
                 <p>在这个世界里，没有绝对的善恶，只有绝对的<em>伪善</em>与<em>生存</em>。人类以为自己是万物之灵，却不知自己才是<em>地狱</em>的缔造者。</p>
               </div>
-              <img src="media/rendao-process.webp" alt="人间道 · 制作过程">
-              <img src="media/rendao-characters.webp" alt="人间道 · 角色设定：男主 / 雇主 / 男主师父 / 大妖 / 小妖" loading="lazy">
-              <img src="media/rendao-scenes.webp" alt="人间道 · 场景：民国破旧木屋 / 奢华压抑地下室 / 斩杀之地" loading="lazy">
-              <img src="media/rendao-props.webp" alt="人间道 · 道具：支票 / 草编虫 / 黑色短刀 / 手术刀 / 红酒杯 / 雪茄" loading="lazy">
+              <img decoding="async" loading="lazy" src="media/rendao-process.webp" alt="人间道 · 制作过程">
+              <img decoding="async" src="media/rendao-characters.webp" alt="人间道 · 角色设定：男主 / 雇主 / 男主师父 / 大妖 / 小妖" loading="lazy">
+              <img decoding="async" src="media/rendao-scenes.webp" alt="人间道 · 场景：民国破旧木屋 / 奢华压抑地下室 / 斩杀之地" loading="lazy">
+              <img decoding="async" src="media/rendao-props.webp" alt="人间道 · 道具：支票 / 草编虫 / 黑色短刀 / 手术刀 / 红酒杯 / 雪茄" loading="lazy">
             </span>
           </button>
         </div>
@@ -1616,7 +1624,7 @@
             <p class="cat-block-quote">以“赛博废土与复古中式的碰撞”为核心视觉，用幽蓝机械冷光与暖黄煤油灯形成极致冷暖张力。设计上将无形情绪具象化为发光结晶与灰雾玻璃罐，借黄铜天平隐喻等价交换。人物造型融合粗粝废土与精密机械，通过打工人的狼狈与半机械人陆渊的隐忍，传达出“在冰冷无感的世界里，伤痕与痛觉，才是生而为人的证明”这一主题。</p>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="情绪拾荒者" data-cat-label="AI短剧：情绪拾荒者" data-year="2025" data-video="media/qingxu.mp4">
-            <img src="media/qingxu-cover.jpg" alt="AI短剧：情绪拾荒者 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/qingxu-cover.jpg" alt="AI短剧：情绪拾荒者 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
@@ -1624,10 +1632,10 @@
                 <p>在光怪陆离的“赛博城”，巨型垄断财阀“极乐科技”为了维持城市的终极秩序与能源供给，暗中推行“<em>无感症</em>”计划，将市民的喜怒哀乐抽干，提炼为喂养净化塔的燃料，让整座城市逐渐沦为行尸走肉。</p>
                 <p>在这片冰冷的钢铁森林里，下城区的“<em>忘忧阁</em>”成了人们典当情绪换取生存物资的灰色枢纽。在这里，焦虑、贪婪、痛苦皆可标价，但失去情绪，人也就成了空壳。故事以底层打工人<em>林夏</em>与半机械人<em>陆渊</em>的抗争为核心，探讨了一个深刻的命题：在高度异化的科技时代，那些被视为“累赘”的负面情绪，恰恰是人类抵抗异化、证明自己“<em>有血有肉</em>”的唯一锚点。</p>
               </div>
-              <img src="media/qingxu-process.webp" alt="情绪拾荒者 · 制作过程">
-              <img src="media/qingxu-characters.webp" alt="情绪拾荒者 · 角色设定：陆渊 / 林夏 / 西装男" loading="lazy">
-              <img src="media/qingxu-scenes.webp" alt="情绪拾荒者 · 场景：霓虹暴雨长街 / 忘忧阁胡同 / 忘忧阁内部" loading="lazy">
-              <img src="media/qingxu-props.webp" alt="情绪拾荒者 · 道具：情绪罐 / 情绪结晶 / 留声机 / 赛博币 / 太师椅 / 黄铜天平" loading="lazy">
+              <img decoding="async" loading="lazy" src="media/qingxu-process.webp" alt="情绪拾荒者 · 制作过程">
+              <img decoding="async" src="media/qingxu-characters.webp" alt="情绪拾荒者 · 角色设定：陆渊 / 林夏 / 西装男" loading="lazy">
+              <img decoding="async" src="media/qingxu-scenes.webp" alt="情绪拾荒者 · 场景：霓虹暴雨长街 / 忘忧阁胡同 / 忘忧阁内部" loading="lazy">
+              <img decoding="async" src="media/qingxu-props.webp" alt="情绪拾荒者 · 道具：情绪罐 / 情绪结晶 / 留声机 / 赛博币 / 太师椅 / 黄铜天平" loading="lazy">
             </span>
           </button>
         </div>
@@ -1640,7 +1648,7 @@
             <p class="cat-block-quote">用最真实的市井烟火，撕裂最虚伪的豪门滤镜，在极致的阶层反差中，完成一场酣畅淋漓的尊严反击。</p>
           </div>
           <button class="cat-block-media cat-block-video work-item" type="button" data-title="退婚吧 大少爷" data-cat-label="AI短剧：退婚吧 大少爷" data-year="2024" data-video="media/tuihun.mp4">
-            <img src="media/tuihun-cover.jpg" alt="AI短剧：退婚吧 大少爷 · 视频封面" loading="lazy">
+            <img decoding="async" src="media/tuihun-cover.jpg" alt="AI短剧：退婚吧 大少爷 · 视频封面" loading="lazy">
             <span class="play-badge" aria-hidden="true"><i></i>播放视频</span>
             <span class="cat-block-view">观看视频 · 制作过程 <span aria-hidden="true">↗</span></span>
             <span class="work-gallery" hidden>
@@ -1648,10 +1656,10 @@
                 <p>故事发生在被折叠的现代都市<em>江城</em>。<em>宗澈</em>是厌恶资本联姻、骑机车出逃的财阀继承人，拒绝做家族利益置换的筹码；<em>温羽</em>则是利益至上、步步紧逼的豪门千金；<em>黎麦</em>是为生活所迫，在便利店上夜班的川渝女孩。</p>
                 <p>当傲慢的迈巴赫停在廉价便利店门前，一场特权阶层的碾压与底层生存的碰撞彻底爆发。黎麦用一句“<em>凭双手吃碗饭不丢人</em>”，狠狠击碎了虚伪的资本滤镜，也唤醒了宗澈反抗的底气。在这个冰冷的现实世界中，没有开挂的神话，只有一场真正撕裂阶层、捍卫普通人尊严的<em>绝地反击</em>。</p>
               </div>
-              <img src="media/tuihun-process.webp" alt="退婚吧 大少爷 · 制作过程">
-              <img src="media/tuihun-characters.webp" alt="退婚吧 大少爷 · 角色设定：宗澈 / 温羽 / 黎麦 / 混混头目 / 混混A / 混混B" loading="lazy">
-              <img src="media/tuihun-scenes.webp" alt="退婚吧 大少爷 · 场景：深夜都市街角 / 便利店内部" loading="lazy">
-              <img src="media/tuihun-props.webp" alt="退婚吧 大少爷 · 道具：冰川白迈巴赫 / 黑色机车" loading="lazy">
+              <img decoding="async" loading="lazy" src="media/tuihun-process.webp" alt="退婚吧 大少爷 · 制作过程">
+              <img decoding="async" src="media/tuihun-characters.webp" alt="退婚吧 大少爷 · 角色设定：宗澈 / 温羽 / 黎麦 / 混混头目 / 混混A / 混混B" loading="lazy">
+              <img decoding="async" src="media/tuihun-scenes.webp" alt="退婚吧 大少爷 · 场景：深夜都市街角 / 便利店内部" loading="lazy">
+              <img decoding="async" src="media/tuihun-props.webp" alt="退婚吧 大少爷 · 道具：冰川白迈巴赫 / 黑色机车" loading="lazy">
             </span>
           </button>
         </div>
@@ -2188,7 +2196,7 @@
 <div class="cube-viewer" id="cubeViewer" role="dialog" aria-modal="true" aria-label="作品占位预览" aria-hidden="true">
   <button class="cv-close" id="cvClose" type="button" aria-label="关闭">✕</button>
   <div class="cv-card" id="cvCard">
-    <img class="cv-img" id="cvImg" alt="">
+    <img decoding="async" loading="lazy" class="cv-img" id="cvImg" alt="">
     <div class="cv-meta">
       <span class="cv-num" id="cvNum">01</span>
       <span class="cv-label">作品</span>

@@ -1980,7 +1980,7 @@
   }
   updateActiveWork();
 
-  /* ---------- lightbox · 精选横滑 / 分类 4+ 上下滑动 ---------- */
+  /* ---------- lightbox · 全部作品上下滑动浏览 ---------- */
   const lb = $('#lightbox');
   const lbMedia = lb ? lb.querySelector('.lb-media') : null;
   const lbImg = $('#lbImg');
@@ -2039,34 +2039,46 @@
       count++;
     };
 
-    const mainImg = Array.from(card.querySelectorAll('img')).find(im => !im.closest('.work-gallery'));
+    const allImgs = Array.from(card.querySelectorAll('img'));
+    const isFan = card.classList.contains('cat-card');
+    const frontImg = isFan
+      ? (allImgs.find(im => im.classList.contains('front')) || allImgs[0])
+      : allImgs.find(im => !im.closest('.work-gallery'));
+    const boardOf = im => im.classList.contains('on-board') ? 'on-board' : (im.classList.contains('on-dark-board') ? 'on-dark-board' : '');
+    const pushImg = (im, caption) => {
+      const img = document.createElement('img');
+      img.src = im.src;
+      img.alt = im.alt || '';
+      img.loading = 'lazy';
+      const b = boardOf(im);
+      if (b) img.classList.add(b);
+      addItem(img, caption === undefined ? (im.alt || '') : caption);
+    };
     const videoSrc = card.dataset.video;
     if (videoSrc) {
       const v = document.createElement('video');
       v.controls = true;
       v.playsInline = true;
       v.preload = 'metadata';
-      if (mainImg) v.poster = mainImg.src;
+      if (frontImg) v.poster = frontImg.src;
       v.src = videoSrc;
       addItem(v, '');
-    } else if (mainImg) {
-      const img = document.createElement('img');
-      img.src = mainImg.src;
-      img.alt = mainImg.alt || '';
-      addItem(img, '');
+    } else if (frontImg) {
+      pushImg(frontImg, '');
+    }
+    if (isFan && !videoSrc) {
+      /* 扇形精选：封面之后依次排列其余扇形图，再往下是隐藏画廊 */
+      Array.from(card.querySelectorAll('.fan-stack img')).forEach(im => {
+        if (im === frontImg) return;
+        pushImg(im);
+      });
     }
 
     const gallery = card.querySelector('.work-gallery');
     if (gallery) {
       Array.from(gallery.children).forEach(child => {
         if (child.tagName === 'IMG') {
-          const img = document.createElement('img');
-          img.src = child.src;
-          img.alt = child.alt || '';
-          img.loading = 'lazy';
-          if (child.classList.contains('on-board')) img.classList.add('on-board');
-          if (child.classList.contains('on-dark-board')) img.classList.add('on-dark-board');
-          addItem(img, child.alt || '');
+          pushImg(child);
         } else if (child.classList.contains('work-lore')) {
           /* 世界观文字：#lb-stack 内保留顺序，位于视频与制作过程之间 */
           const lore = child.cloneNode(true);
@@ -2097,24 +2109,8 @@
       lb.classList.add('is-stack');
       if (lbMedia) lbMedia.classList.add('stack-mode');
       buildStack(card);
-    } else if (card.classList.contains('cat-card')) {
-      /* 前三个精选分类：4 张扇形图横向切换 */
-      lbMode = 'carousel';
-      lb.classList.remove('is-stack');
-      if (lbMedia) lbMedia.classList.remove('stack-mode');
-      const imgs = Array.from(card.querySelectorAll('img'));
-      if (!imgs.length) return;
-      const front = imgs.find(im => im.classList.contains('front'));
-      const seq = front ? [front, ...imgs.filter(im => im !== front)] : imgs;
-      lbItems = seq.map(im => ({
-        src: im.src,
-        alt: im.alt || '',
-        board: im.dataset.board || (im.classList.contains('on-board') ? 'light' : (im.classList.contains('on-dark-board') ? 'dark' : ''))
-      }));
-      lbIndex = 0;
-      renderCarousel(0);
     } else {
-      /* 分类 4 起：点击进入后上下滑动 */
+      /* 图片类作品（含扇形精选）：点击进入后上下滑动浏览 */
       lbMode = 'stack';
       lb.classList.add('is-stack');
       if (lbMedia) lbMedia.classList.add('stack-mode');
